@@ -1,0 +1,21 @@
+version: '3'
+services:
+  wm:
+    image: ez34/wm:155              #这里是拉取镜像的地址，不要更改。
+    container_name: wm155           #冒号后面是容器的名字，可以随意更改。
+    command: /usr/sbin/init
+    privileged: true
+    restart: always
+    ports:
+      - "522:22"                    #522是映射的端口，可以按自己喜好更改。这里是SSH的端口，可以用这端口登录容器里的系。 账号：root  密码：123456
+      - "580:80"                    #580是网页端口，可以按自己喜好自由更改。但记得登录iweb和注册账号的时候使用你修改过的端口。
+      - "588:88"                    #tomcat端口，用法同上。
+      - "29000:29000"               #游戏端口，不需要修改
+      - "29100:29100"                       
+      - "29300:29300"
+      - "29400:29400"
+      - "53306:3306"                #数据库端口，前面的可以随意修改。账号: root    密码：123456
+      - "65535:65535"               #iweb使用的端口，尽量不要修改。
+    volumes:
+      - ./hosts:/etc/hosts
+      - ./config.php:/var/www/html/iweb/system/data/config.php
